@@ -1,13 +1,9 @@
 import { notFound } from "next/navigation";
 
 import { ArticleDetailPage } from "@/components/article-detail-page";
-import { articleDetails, getArticleDetail } from "@/components/article-detail-data";
+import { getArticleBySlug } from "@/lib/supabase/queries/articles";
 
-export function generateStaticParams() {
-  return articleDetails.map((article) => ({
-    slug: article.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function NewsDetailRoute({
   params,
@@ -15,7 +11,7 @@ export default async function NewsDetailRoute({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = getArticleDetail(slug);
+  const article = await getArticleBySlug(slug);
 
   if (!article) {
     notFound();

@@ -84,7 +84,9 @@ export function ArticleDetailPage({ article }: ArticleDetailPageProps) {
               ))}
             </div>
 
-            <RelatedStories stories={article.relatedStories} />
+            {article.relatedStories.length > 0 && (
+              <RelatedStories stories={article.relatedStories} />
+            )}
           </article>
 
           <ArticleAnalysisPanels article={article} />
@@ -122,7 +124,7 @@ function RelatedStories({ stories }: { stories: RelatedStory[] }) {
 function RelatedStoryCard({ story }: { story: RelatedStory }) {
   return (
     <Link
-      href="#"
+      href={story.href ?? "#"}
       className="group grid grid-cols-[96px_1fr] gap-4 rounded-md transition hover:bg-white/60 focus-visible:outline-2 focus-visible:outline-[#174EA6]"
     >
       <div

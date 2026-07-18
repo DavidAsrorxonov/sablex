@@ -12,6 +12,10 @@ export type NewsArticle = {
   framing: BiasMeterValues;
   sources: number;
   href?: string;
+  publishedDate?: string;
+  sentimentLabel?: string;
+  framingLabel?: string;
+  confidence?: number;
 };
 
 type NewsCardProps = {
@@ -49,6 +53,22 @@ export function NewsCard({ article }: NewsCardProps) {
         </h2>
 
         <BiasMeter {...article.framing} />
+
+        {(article.sentimentLabel || article.framingLabel || article.publishedDate) && (
+          <div className="space-y-1 pt-1 text-[12px] leading-[1.4] text-[#4B5563]">
+            {article.publishedDate && <p>{article.publishedDate}</p>}
+            {(article.sentimentLabel || article.framingLabel) && (
+              <p>
+                {article.sentimentLabel}
+                {article.sentimentLabel && article.framingLabel ? " - " : ""}
+                {article.framingLabel}
+              </p>
+            )}
+            {article.confidence !== undefined && (
+              <p>{Math.round(article.confidence * 100)}% confidence</p>
+            )}
+          </div>
+        )}
 
         <p className="pt-1 text-[13px] font-medium leading-[1.4] text-[#111114]">
           {article.sources} sources

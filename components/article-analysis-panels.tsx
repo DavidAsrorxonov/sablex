@@ -1,5 +1,6 @@
 import type {
   ArticleDetail,
+  FramingLabel,
   SourceBiasLabel,
   SourceBreakdownRow,
   TopSource,
@@ -16,10 +17,12 @@ const biasColors: Record<SourceBiasLabel, string> = {
   Right: "#174EA6",
 };
 
-const biasTextColors: Record<SourceBiasLabel, string> = {
+const biasTextColors: Record<FramingLabel, string> = {
   Left: "text-[#B42318]",
   Center: "text-[#31363F]",
   Right: "text-[#174EA6]",
+  Mixed: "text-[#5C6169]",
+  Unclear: "text-[#5C6169]",
 };
 
 export function ArticleAnalysisPanels({ article }: ArticleAnalysisPanelsProps) {
@@ -60,19 +63,20 @@ function Panel({
 }
 
 function BiasAnalysisPanel({ article }: { article: ArticleDetail }) {
-  const overall = article.framing[article.overallBiasLabel.toLowerCase() as keyof typeof article.framing];
+  const overall = getOverallPercentage(article);
 
   return (
     <Panel title="Bias Analysis">
       <div className="border-b border-[#D5D7DB] pb-5">
         <p className="text-[13px] font-bold leading-[1.4] text-[#111114]">
-          Overall Bias
+          AI-estimated framing
         </p>
         <p className="mt-2 text-[26px] font-bold leading-[1.15] text-[#174EA6]">
-          {article.overallBiasLabel} {overall}%
+          {article.overallBiasLabel}
+          {overall !== null ? ` ${overall}%` : ""}
         </p>
         <p className="mt-1 text-[13px] font-medium leading-[1.45] text-[#174EA6]">
-          Based on {article.sourceCount} balanced sources
+          {Math.round(article.confidence * 100)}% confidence - {article.sentimentLabel} sentiment
         </p>
       </div>
 
@@ -83,10 +87,20 @@ function BiasAnalysisPanel({ article }: { article: ArticleDetail }) {
       </div>
 
       <p className="text-[13px] leading-[1.55] text-[#111114]">
-        Our analysis is based on the political leaning of the publication and
-        how the story is framed. Sources are weighted by reliability and
-        recency.
+        This is AI-estimated political framing based on the article text, not
+        an objective truth claim about the source or story.
       </p>
+
+      {article.framingNotes.length > 0 && (
+        <ul className="mt-4 space-y-2 text-[13px] leading-[1.5] text-[#111114]">
+          {article.framingNotes.map((note) => (
+            <li key={note} className="grid grid-cols-[5px_1fr] gap-2">
+              <span className="mt-2 size-1 rounded-full bg-[#5C6169]" />
+              <span>{note}</span>
+            </li>
+          ))}
+        </ul>
+      )}
 
       <button
         type="button"
@@ -117,7 +131,15 @@ function AiSummaryPanel({ article }: { article: ArticleDetail }) {
       </ul>
 
       <p className="mt-8 text-[12px] leading-[1.45] text-[#5C6169]">
-        AI summaries can make mistakes.
+        {article.disclaimer || "AI summaries can make mistakes."}
+      </p>
+      {article.loadedTerms.length > 0 && (
+        <p className="mt-3 text-[12px] leading-[1.45] text-[#5C6169]">
+          Loaded terms: {article.loadedTerms.join(", ")}
+        </p>
+      )}
+      <p className="mt-3 text-[12px] leading-[1.45] text-[#5C6169]">
+        Model: {article.model}
       </p>
       <button
         type="button"
@@ -152,8 +174,8 @@ function SourceBreakdownPanel({
 
       <div className="mt-7">
         <div className="mb-3 grid grid-cols-[1fr_auto] gap-3 text-[12px] font-bold text-[#111114]">
-          <span>Top Sources</span>
-          <span>Bias</span>
+          <span>Source</span>
+          <span>Framing</span>
         </div>
         <div className="space-y-3 text-[13px] leading-[1.4]">
           {sources.map((source) => (
@@ -223,4 +245,20 @@ function SourceRow({ row }: { row: SourceBreakdownRow }) {
       </div>
     </div>
   );
+}
+
+function getOverallPercentage(article: ArticleDetail) {
+  if (article.overallBiasLabel === "Left") {
+    return article.framing.left;
+  }
+
+  if (article.overallBiasLabel === "Center") {
+    return article.framing.center;
+  }
+
+  if (article.overallBiasLabel === "Right") {
+    return article.framing.right;
+  }
+
+  return null;
 }
