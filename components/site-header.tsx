@@ -1,3 +1,5 @@
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+
 import {
   ChevronDownIcon,
   GlobeIcon,
@@ -10,7 +12,7 @@ export function SiteHeader() {
   return (
     <header>
       <div className="bg-[#202020] text-white">
-        <div className="mx-auto flex min-h-9 w-full max-w-[1460px] items-center justify-between gap-4 px-4 text-[11px] sm:px-6 lg:px-12">
+        <div className="mx-auto flex min-h-9 w-full max-w-365 items-center justify-between gap-4 px-4 text-[11px] sm:px-6 lg:px-12">
           <div className="flex min-w-0 items-center gap-4 text-white/90">
             <span className="hidden sm:inline">Browser Extension</span>
             <span className="hidden h-4 w-px bg-white/20 sm:inline-block" />
@@ -35,7 +37,7 @@ export function SiteHeader() {
       </div>
 
       <div className="border-b border-[#D5D7DB] bg-[#F7F7F4]">
-        <div className="mx-auto flex min-h-[72px] w-full max-w-[1460px] items-center gap-4 px-4 sm:px-6 lg:px-12">
+        <div className="mx-auto flex min-h-18 w-full max-w-365 items-center gap-4 px-4 sm:px-6 lg:px-12">
           <button
             type="button"
             aria-label="Open menu"
@@ -44,7 +46,11 @@ export function SiteHeader() {
             <MenuIcon />
           </button>
 
-          <a href="#" className="mr-2 shrink-0 leading-none" aria-label="sablex News home">
+          <a
+            href="#"
+            className="mr-2 shrink-0 leading-none"
+            aria-label="sablex News home"
+          >
             <span className="block text-[30px] font-bold tracking-normal sm:text-[34px]">
               sablex
             </span>
@@ -55,7 +61,7 @@ export function SiteHeader() {
 
           <nav
             aria-label="Primary navigation"
-            className="hidden h-[72px] flex-1 items-stretch overflow-x-auto md:flex"
+            className="hidden h-18 flex-1 items-stretch overflow-x-auto md:flex"
           >
             {navItems.map((item) => (
               <a
@@ -78,18 +84,27 @@ export function SiteHeader() {
           </nav>
 
           <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
-            <a
-              href="#"
-              className="inline-flex h-10 items-center justify-center rounded-md bg-[#171717] px-4 text-[12px] font-bold text-white shadow-sablex-sm transition hover:bg-black sm:h-12 sm:px-8 sm:text-[14px]"
-            >
-              Subscribe
-            </a>
-            <a
-              href="#"
-              className="inline-flex h-10 items-center justify-center rounded-md border border-[#AEB3BA] bg-white/50 px-4 text-[12px] font-bold text-[#111114] shadow-sablex-sm transition hover:bg-white sm:h-12 sm:px-9 sm:text-[14px]"
-            >
-              Login
-            </a>
+            <Show when="signed-out">
+              <SignUpButton mode="modal">
+                <button
+                  type="button"
+                  className="inline-flex h-10 items-center justify-center rounded-md bg-[#171717] px-4 text-[12px] font-bold text-white shadow-sablex-sm transition hover:bg-black sm:h-12 sm:px-8 sm:text-[14px]"
+                >
+                  Sign up
+                </button>
+              </SignUpButton>
+              <SignInButton mode="modal">
+                <button
+                  type="button"
+                  className="inline-flex h-10 items-center justify-center rounded-md border border-[#AEB3BA] bg-white/50 px-4 text-[12px] font-bold text-[#111114] shadow-sablex-sm transition hover:bg-white sm:h-12 sm:px-9 sm:text-[14px]"
+                >
+                  Sign in
+                </button>
+              </SignInButton>
+            </Show>
+            <Show when="signed-in">
+              <UserButton />
+            </Show>
           </div>
         </div>
 
