@@ -24,6 +24,7 @@ export const newsArticles: NewsArticle[] = [
     imageAlt: "A formal political press setting with American flags",
     framing: { left: 20, center: 31, right: 49 },
     sources: 12,
+    href: "/news/trump-sends-iran-revised-peace-proposal",
   },
   {
     category: "Health",

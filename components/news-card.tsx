@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { BiasMeter, type BiasMeterValues } from "@/components/bias-meter";
 import { InfoIcon } from "@/components/homepage-icons";
 
@@ -9,6 +11,7 @@ export type NewsArticle = {
   imageAlt: string;
   framing: BiasMeterValues;
   sources: number;
+  href?: string;
 };
 
 type NewsCardProps = {
@@ -16,7 +19,7 @@ type NewsCardProps = {
 };
 
 export function NewsCard({ article }: NewsCardProps) {
-  return (
+  const card = (
     <article className="group overflow-hidden rounded-lg border border-[#C9CCD1] bg-white shadow-sablex-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-sablex-md">
       <div
         role="img"
@@ -26,13 +29,12 @@ export function NewsCard({ article }: NewsCardProps) {
           backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.12)), url(${article.imageUrl})`,
         }}
       >
-        <button
-          type="button"
+        <span
           aria-label={`More context for ${article.title}`}
-          className="absolute right-3 top-3 flex size-6 items-center justify-center rounded-full border border-white/70 bg-black/60 text-white shadow-sablex-sm transition hover:bg-black/75"
+          className="absolute right-3 top-3 flex size-6 items-center justify-center rounded-full border border-white/70 bg-black/60 text-white shadow-sablex-sm"
         >
           <InfoIcon className="size-4" />
-        </button>
+        </span>
       </div>
 
       <div className="space-y-3 p-4">
@@ -53,5 +55,15 @@ export function NewsCard({ article }: NewsCardProps) {
         </p>
       </div>
     </article>
+  );
+
+  if (!article.href) {
+    return card;
+  }
+
+  return (
+    <Link href={article.href} className="block focus-visible:outline-2 focus-visible:outline-[#174EA6]">
+      {card}
+    </Link>
   );
 }

@@ -58,6 +58,45 @@ export function InfoIcon({ className = "size-4" }: IconProps) {
   );
 }
 
+export function BookmarkIcon({ className = "size-4" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} {...iconProps}>
+      <path d="M6 4h12v17l-6-4-6 4V4Z" />
+    </svg>
+  );
+}
+
+export function ShareIcon({ className = "size-4" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} {...iconProps}>
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <path d="m8.6 10.5 6.8-4" />
+      <path d="m8.6 13.5 6.8 4" />
+    </svg>
+  );
+}
+
+export function MoreIcon({ className = "size-4" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} {...iconProps}>
+      <circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function MailIcon({ className = "size-4" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} {...iconProps}>
+      <rect x="4" y="6" width="16" height="12" rx="2" />
+      <path d="m4 8 8 6 8-6" />
+    </svg>
+  );
+}
+
 export function ExternalMark({ className = "size-4" }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" className={className} {...iconProps}>
