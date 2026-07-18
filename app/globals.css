@@ -39,6 +39,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
   letter-spacing: 0;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -65,4 +66,12 @@ button:focus-visible {
 
 .shadow-sablex-lg {
   box-shadow: var(--shadow-large);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
