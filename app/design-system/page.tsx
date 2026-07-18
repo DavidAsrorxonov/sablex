@@ -155,9 +155,7 @@ function SystemIcon({ name }: { name: string }) {
         <path d="m16 16 4 4" />
       </>
     ),
-    Save: (
-      <path d="M6 4h12v17l-6-4-6 4V4Z" />
-    ),
+    Save: <path d="M6 4h12v17l-6-4-6 4V4Z" />,
     Clock: (
       <>
         <circle cx="12" cy="12" r="8" />
@@ -261,9 +259,9 @@ function SystemIcon({ name }: { name: string }) {
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#F6F6F6] p-4 text-[#0D0D0F] sm:p-6 lg:p-8">
-      <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-4 lg:grid-cols-12">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 lg:grid-cols-12">
         <Panel title="Brand" className="lg:col-span-4">
-          <div className="flex min-h-[160px] flex-col items-center justify-center text-center">
+          <div className="flex min-h-40 flex-col items-center justify-center text-center">
             <div className="relative inline-flex items-end">
               <span className="text-[56px] font-bold leading-none tracking-normal sm:text-[64px]">
                 sablex
@@ -272,7 +270,7 @@ export default function Home() {
                 News
               </span>
             </div>
-            <p className="mt-12 max-w-[260px] text-base leading-[1.6] text-[#2F343D]">
+            <p className="mt-12 max-w-65 text-base leading-[1.6] text-[#2F343D]">
               Balanced news coverage, powered by AI.
             </p>
           </div>
@@ -291,7 +289,7 @@ export default function Home() {
               </p>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[440px] text-left text-[11px]">
+              <table className="w-full min-w-110 text-left text-[11px]">
                 <thead>
                   <tr className="uppercase text-[#0D0D0F]">
                     <th className="pb-4 font-semibold">Style</th>
@@ -324,7 +322,7 @@ export default function Home() {
                 Buttons
               </p>
               <div className="overflow-x-auto pb-2">
-                <div className="grid min-w-[520px] grid-cols-[72px_repeat(4,minmax(88px,1fr))] gap-3 text-[11px]">
+                <div className="grid min-w-130 grid-cols-[72px_repeat(4,minmax(88px,1fr))] gap-3 text-[11px]">
                   <span />
                   {["Default", "Hover", "Outline", "Disabled"].map((state) => (
                     <span key={state} className="text-center text-[#343A43]">
@@ -476,7 +474,7 @@ export default function Home() {
 
         <Panel title="Card Example" className="lg:col-span-4">
           <article className="grid gap-5 md:grid-cols-[1fr_1.45fr]">
-            <div className="relative min-h-[190px] overflow-hidden rounded-lg bg-[#DDE1E8]">
+            <div className="relative min-h-47.5 overflow-hidden rounded-lg bg-[#DDE1E8]">
               <div className="absolute inset-0 bg-[linear-gradient(135deg,#C8CDD6_0%,#F7F7F7_50%,#8D96A5_100%)]" />
               <div className="absolute bottom-0 left-8 h-36 w-24 rounded-t-full bg-[#1F2937]" />
               <div className="absolute bottom-0 left-16 h-24 w-28 bg-[#B42318]" />
@@ -599,13 +597,13 @@ export default function Home() {
         </Panel>
       </div>
 
-      <footer className="mx-auto mt-4 flex max-w-[1280px] flex-col gap-8 rounded-lg bg-[#171B22] px-8 py-7 text-white shadow-sablex-lg sm:flex-row sm:items-center sm:justify-between">
+      <footer className="mx-auto mt-4 flex max-w-7xl flex-col gap-8 rounded-lg bg-[#171B22] px-8 py-7 text-white shadow-sablex-lg sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-10">
           <div className="leading-none">
             <p className="text-3xl font-bold">sablex</p>
             <p className="-mt-1 text-center text-xs font-semibold">News</p>
           </div>
-          <p className="max-w-[220px] text-sm leading-[1.6] text-white/90">
+          <p className="max-w-55 text-sm leading-[1.6] text-white/90">
             Balanced news coverage, powered by AI.
           </p>
         </div>
